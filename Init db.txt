@@ -1,0 +1,39 @@
+CREATE DATABASE summer_practice_2021;
+
+CREATE TABLE fieldOfMath(
+	id_fieldOfMath INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	nameFieldOfMath varchar(20) UNIQUE NOT NULL CHECK(nameFieldOfMath !='')
+);
+
+CREATE TABLE mathProblem(
+	id_mathProblem INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	id_fieldOfMath INT NOT NULL,
+	problemImageName varchar(20) NOT NULL CHECK(problemImageName !=''),
+	answer varchar(32) NOT NULL CHECK(answer !=''),
+	FOREIGN KEY (id_fieldOfMath) REFERENCES FieldOfMath (id_fieldOfMath) ON DELETE CASCADE
+);
+
+INSERT fieldOfMath(nameFieldOfMath) VALUES
+("arithmetic"),
+("algebra"),
+("geometry")
+;
+
+CREATE TABLE salt(
+	id_salt INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	salt varchar(32) NOT NULL CHECK(salt !='')
+);
+
+CREATE TABLE user(
+	id_user INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	email varchar(40) UNIQUE NOT NULL CHECK(email !=''),
+	id_salt INT NOT NULL,
+	password varchar(32) NOT NULL CHECK(email !='')
+);
+CREATE TABLE resolvedProblem(
+	id_resolvedProblem INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	id_user INT NOT NULL,
+	id_mathProblem INT NOT NULL,
+	FOREIGN KEY (id_user) REFERENCES user (id_user) ON DELETE CASCADE,
+	FOREIGN KEY (id_mathProblem) REFERENCES mathProblem (id_mathProblem) ON DELETE CASCADE
+);
