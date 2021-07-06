@@ -1,6 +1,7 @@
 package summer2021.mathelementaryschool.datebase.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -11,12 +12,20 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Getter
 public class Salt {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_salt", updatable = false)
-    public Integer  id_salt;
+    @Column(name = "id", updatable = false)
+    private Long  id;
 
     @Column(name = "salt", nullable = false, updatable = false)
-    public String   salt;
+    private String   salt;
+
+    @OneToOne(mappedBy = "salt", cascade = CascadeType.ALL, orphanRemoval = true)
+    private User    user;
+
+    public Salt(String salt){
+        this.salt = salt;
+    }
 }

@@ -1,13 +1,10 @@
 package summer2021.mathelementaryschool.datebase.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Table(name = "resolvedProblem")
+@Table(name = "resolved_problem")
 @Entity
 @ToString
 @AllArgsConstructor
@@ -17,14 +14,17 @@ public class ResolvedProblem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_resolvedProblem", updatable = false)
-    public Integer  id_resolvedProblem;
+    @Column(name = "id", updatable = false)
+    private Long id;
 
-    @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user", nullable = false, updatable = false, referencedColumnName = "id_user")
-    public Integer  id_user;
+    @Setter
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false,referencedColumnName = "id")
+    private User user;
 
-    @OneToOne(targetEntity = MathProblem.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_mathProblem", nullable = false, updatable = false, referencedColumnName = "id_mathProblem")
-    public Integer  id_mathProblem;
+    @Setter
+    @ManyToOne(targetEntity = MathProblem.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_math_problem", nullable = false, referencedColumnName = "id")
+    private MathProblem mathProblem;
+
 }
