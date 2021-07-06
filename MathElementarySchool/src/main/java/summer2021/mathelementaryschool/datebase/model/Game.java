@@ -4,7 +4,6 @@ import lombok.*;
 import net.bytebuddy.utility.RandomString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Table(name = "game")
 @Entity
@@ -33,9 +32,6 @@ public class Game {
 
     @Column(name = "shuffle_key", nullable = false, updatable = false)
     private String      shuffle_key;
-
-   // @Setter
-   // private List<MathProblem> mathProblems = null;
 
     public Game(@NonNull User user, @NonNull FieldOfMath fieldOfMath){
         this.field_of_math  = fieldOfMath;

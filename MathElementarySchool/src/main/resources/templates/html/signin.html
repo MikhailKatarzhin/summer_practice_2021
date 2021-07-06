@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Аутентификация</title>
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+<div class="container" align="center">
+    <form class="form-signin" method="post" action="/signin">
+        <h1 class="form-signin-heading">Авторизация</h1>
+        <p>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="Email" class="form-control" placeholder="Электронный адресс" required>
+        </p>
+        <p>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
+        </p>
+        <button class="button" type="submit">Sign in / Войти</button>
+
+        <p>Ещё нет аккаунта? / Doesn't have account? <a href="http://localhost:8080/signup">Зарегистрироваться / Sign up</a>.</p>
+    </form>
+</div>
+</body>
+</html>

@@ -28,6 +28,9 @@ public class User {
     @Column(name = "password", nullable = false, updatable = false)
     private String  password;
 
+    @Column(name = "hight_scores", nullable = false)
+    private Long    hight_scores;
+
     @OneToOne(cascade = CascadeType.ALL, targetEntity = Salt.class, orphanRemoval = true)
     @JoinColumn(name = "id_salt", nullable = false, updatable = false, referencedColumnName = "id")
     private Salt    salt;
@@ -49,8 +52,9 @@ public class User {
     }
 
     public User(String email, String password_hash, Salt salt) {
-        this.email      = email;
-        this.password   = password_hash;
-        this.salt       = salt;
+        this.email          = email;
+        this.password       = password_hash;
+        this.salt           = salt;
+        this.hight_scores   = 0L;
     }
 }
