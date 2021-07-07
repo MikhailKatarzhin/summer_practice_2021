@@ -1,9 +1,6 @@
 package summer2021.mathelementaryschool.datebase.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +25,7 @@ public class User {
     @Column(name = "password", nullable = false, updatable = false)
     private String  password;
 
+    @Setter
     @Column(name = "hight_scores", nullable = false)
     private Long    hight_scores;
 

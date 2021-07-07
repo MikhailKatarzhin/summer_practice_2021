@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>signup</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container" align="center">
+    <form>
+        <h1 class="form-signup-heading">Регистрация</h1>
+        <hr>
+        <p>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="Введите Электроннный адресс" required minlength="5" maxlength="32">
+        </p>
+        <p>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Введите пароль" required minlength="5">
+        </p>
+        <p>
+        <label for="password-repeat">Repeat password</label>
+        <input type="password" placeholder="Повторите пароль" id="password-repeat" required minlength="5">
+        </p>
+        <button type="submit" onclick=signup()>Зарегистрироваться</button>
+
+        <p>Уже есть аккаунт? / Already have an account? <a href="http://localhost:8080/signin" target="_self">Войти / Sign in</a>.</p>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="js/signup.js"></script>
+</html>

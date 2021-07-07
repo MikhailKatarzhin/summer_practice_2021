@@ -41,7 +41,7 @@ public class Authentication implements IAuthenticateJWT{
         return null;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public SignUpResponse sign_up(@RequestBody(required = false) SignUpRequest request){
 
         String  salt            = RandomString.make();
@@ -59,11 +59,10 @@ public class Authentication implements IAuthenticateJWT{
         }catch (Exception exception){
             return new SignUpResponse("Salt creating fault", "500");
         }
-
         return new SignUpResponse("Completed", "200");
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/authenticate")
     public SignInResponse sign_in(@RequestBody SignInRequest request, HttpServletResponse response){
         User    user;
         try {
