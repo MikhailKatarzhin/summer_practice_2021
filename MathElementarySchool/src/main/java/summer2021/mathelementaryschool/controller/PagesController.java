@@ -20,11 +20,11 @@ public class PagesController {
     public String signinPage(){
         return "signin";
     }
-    /*@GetMapping
+    @GetMapping("/menu")
     public String getMenuPage(){
-        return MENUPAGE;
+        return "menu";
     }
-    @GetMapping
+    /*@GetMapping
     public String getGamePage(){
         return GAMEPAGE;*/
 

@@ -1,27 +1,40 @@
 function signup() {
-    if(document.getElementById('password').value === document.getElementById('password-repeat').value) {
+    let password = document.getElementById('password').value
+    let password_repeat = document.getElementById('password-repeat').value
+    let email = document.getElementById('email').value
+
+    if( password === password_repeat) {
         console.log(JSON.stringify({
             email: document.getElementById('email').value,
             password: document.getElementById('password').value
         }))
-        alert("clicked")
 
         $.ajax({
             url: '/register',
             method: 'POST',
+            contentType: "application/json",
             data: JSON.stringify({
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value
+                "email": email,
+                "password": password
             }),
             success: function (data) {
-                console.log(data);
-                document.location.href = "/signin";
+                checkSuccess(data);
             },
             error: function (data){
-                document.location.href = "/signup";
-                console.log(data.toString());
-                alert("error" + data.toString());
+                alert(data.status);
             }
         })
+    }
+}
+
+function checkSuccess(data){
+    switch (data.key){
+        case "200":{
+            document.location.href = "/signin";
+            break;
+        }
+        default:{
+            alert("Error" + data.key + " " + data.status);
+        }
     }
 }

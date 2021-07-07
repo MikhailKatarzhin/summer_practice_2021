@@ -50,15 +50,17 @@ public class Authentication implements IAuthenticateJWT{
         try{
             Long id_salt = saltRepository.save(new Salt(salt)).getId();
             try {
+                User tempUser = userRepository.findUserByEmail(request.getEmail());
+                if(tempUser != null) throw new IllegalArgumentException();
                 userRepository.save(new User(request.getEmail(), password_hash, saltRepository.findById(id_salt).orElseThrow()));
             } catch (Exception exception) {
-                exception.printStackTrace();
                 saltRepository.deleteById(id_salt);
                 return new SignUpResponse("This user already exists", "400");
             }
         }catch (Exception exception){
             return new SignUpResponse("Salt creating fault", "500");
         }
+        System.out.println("created");
         return new SignUpResponse("Completed", "200");
     }
 
