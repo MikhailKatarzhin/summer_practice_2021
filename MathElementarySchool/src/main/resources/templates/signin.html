@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Вход / Sign in</title>
-    <link rel="stylesheet" href="css/auth.css">
+    <title>Аутентификация / Authentication</title>
+    <link rel="stylesheet" href="css/WBYedition.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
 <body>
 <div class="container" align="center">
-    <h1>Авторизация</h1>
+    <h1>Аутентификация / Authentication</h1>
     <hr>
     <p>
         <label for="email">Email</label>
@@ -19,9 +19,10 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required minlength="5">
     </p>
-    <button type="button">Sign in / Войти</button>
+    <button type="button" onclick=signin()>Sign in / Войти</button>
 
     <p>Ещё нет аккаунта? / Doesn't have account? <a href="http://localhost:8080/signup" target="_self">Зарегистрироваться / Sign up</a>.</p>
 </div>
 </body>
+<script type="text/javascript" src="js/signin.js"></script>
 </html>
