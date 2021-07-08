@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class ResolvedProblem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -26,5 +26,4 @@ public class ResolvedProblem {
     @ManyToOne(targetEntity = MathProblem.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_math_problem", nullable = false, referencedColumnName = "id")
     private MathProblem mathProblem;
-
 }
