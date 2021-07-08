@@ -1,4 +1,4 @@
-package summer2021.mathelementaryschool.controller;
+package summer2021.mathelementaryschool.restAPI;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
