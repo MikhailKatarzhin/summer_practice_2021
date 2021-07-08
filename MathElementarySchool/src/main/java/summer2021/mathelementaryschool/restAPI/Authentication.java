@@ -33,16 +33,16 @@ public class Authentication implements IAuthenticateJWT{
     }
 
     public JWTPayload checkAuthentication(HttpServletRequest request) {
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals(authCookieName)) {
+        if (request.getCookies() == null)
+            return null;
+        for (Cookie cookie : request.getCookies())
+            if (cookie.getName().equals(authCookieName))
                 return JWTPayload.valueOf(cookie.getValue(), authenticateSecret);
-            }
-        }
         return null;
     }
 
     @PostMapping("/register")
-    public SignUpResponse sign_up(@RequestBody(required = false) SignUpRequest request){
+    public SignResponse sign_up(@RequestBody(required = false) SignRequest request){
 
         String  salt            = RandomString.make();
         String  password_hash   = DigestUtils.sha1Hex(String.format("%s%s", request.getPassword(), salt));
@@ -55,44 +55,43 @@ public class Authentication implements IAuthenticateJWT{
                 userRepository.save(new User(request.getEmail(), password_hash, saltRepository.findById(id_salt).orElseThrow()));
             } catch (Exception exception) {
                 saltRepository.deleteById(id_salt);
-                return new SignUpResponse("This user already exists", "400");
+                return new SignResponse("This user already exists", "400");
             }
         }catch (Exception exception){
-            return new SignUpResponse("Salt creating fault", "500");
+            return new SignResponse("Salt creating fault", "500");
         }
         System.out.println("created");
-        return new SignUpResponse("Completed", "200");
+        return new SignResponse("Completed", "200");
     }
 
     @PostMapping("/authenticate")
-    public SignInResponse sign_in(@RequestBody SignInRequest request, HttpServletResponse response){
+    public SignResponse sign_in(@RequestBody SignRequest request, HttpServletResponse response){
         User    user;
         try {
             user                = userRepository.findUserByEmail(request.getEmail());
             if(user == null) throw new NullPointerException();
         }catch (Exception exception){
             exception.printStackTrace();
-            return new SignInResponse("User does not exist", "404");
+            return new SignResponse("User does not exist", "400");
         }
 
         Salt    salt            = saltRepository.findById(user.getSalt().getId()).orElse(null);
-        if(salt==null){
-            return new SignInResponse("Validation is failed", "500");
-        }
+        if(salt==null)
+            return new SignResponse("Validation is failed", "500");
 
         String  password_hash   = DigestUtils.sha1Hex(String.format("%s%s", request.getPassword(), salt.getSalt()));
-        if(!password_hash.equals(user.getPassword())){
-            return new SignInResponse("Invalid password", "400");
-        }
+        if(!password_hash.equals(user.getPassword()))
+            return new SignResponse("Invalid password", "400");
 
         String jwtString        = new JWTPayload(user.getId(), user.getEmail()).toJWT(authenticateSecret);
-        if (jwtString == null) {
-            return new SignInResponse("Can not to authorise", "500");
-        }
+        if (jwtString == null)
+            return new SignResponse("Can not to authorise", "500");
 
-        response.addCookie(new Cookie(authCookieName, jwtString));
+        Cookie cookie = new Cookie(authCookieName, jwtString);
+        cookie.setPath("/");
+        response.addCookie(cookie);
 
-        return new SignInResponse("Successful signed in", "200");
+        return new SignResponse("Successful signed in", "200");
     }
 
 }

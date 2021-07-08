@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SignInResponse {
-    @NonNull private String status;
-    @NonNull private String key;
+public class SignRequest {
+    @NonNull private String email;
+    @NonNull private String password;
 }
