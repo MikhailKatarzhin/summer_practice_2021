@@ -4,11 +4,6 @@ function signup() {
     let email = document.getElementById('email').value
 
     if( password === password_repeat) {
-        console.log(JSON.stringify({
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value
-        }))
-
         $.ajax({
             url: '/register',
             method: 'POST',
