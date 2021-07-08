@@ -1,12 +1,14 @@
-package summer2021.mathelementaryschool.restAPI;
+package summer2021.mathelementaryschool.restAPI.authorizate;
 
 import io.jsonwebtoken.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.Map;
 
+@Getter
 @AllArgsConstructor
 public class JWTPayload {
 

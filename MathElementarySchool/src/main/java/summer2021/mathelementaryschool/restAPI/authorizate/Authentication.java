@@ -1,4 +1,4 @@
-package summer2021.mathelementaryschool.restAPI;
+package summer2021.mathelementaryschool.restAPI.authorizate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

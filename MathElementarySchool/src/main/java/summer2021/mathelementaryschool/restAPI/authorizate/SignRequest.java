@@ -1,4 +1,4 @@
-package summer2021.mathelementaryschool.restAPI;
+package summer2021.mathelementaryschool.restAPI.authorizate;
 
 import lombok.*;
 

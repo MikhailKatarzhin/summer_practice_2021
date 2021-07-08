@@ -24,8 +24,8 @@ public class PagesController {
     public String getMenuPage(){
         return "menu";
     }
-    /*@GetMapping
-    public String getGamePage(){
-        return GAMEPAGE;*/
-
+    @GetMapping("/gameroom")
+    public String getGamePage() {
+        return "gameroom";
+    }
 }

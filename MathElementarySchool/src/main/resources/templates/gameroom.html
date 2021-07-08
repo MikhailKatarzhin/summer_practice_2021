@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Игровая комната / Game room</title>
+    <link rel="stylesheet" href="css/WBYedition.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<body>
+<div class="container" align="center">
+
+
+    <table cellpadding="10">
+        <td>
+            <span>Верных решений: </span>
+            <span id="score">неизвестно</span>
+        </td>
+        <td>
+            <span>Высший бал: </span>
+            <span id="hightscore">неизвестно</span>
+        </td>
+    </table>
+
+    <hr>
+
+    <table cellpadding="10">
+        <td>
+            <img id="problemImage" src="image/0.jpg" alt="картинка поделилпсь на ноль">
+        </td>
+        <td>
+            <font id="description">Загрузка текста задачи не выполнена</font>
+        </td>
+    </table>
+
+    <hr>
+
+    <label for="answer">Ответ: </label>
+    <input type="text" id="answer" placeholder="Введите ответ" minlength="1">
+
+    <p>
+    <button type="button">Завершить</button>
+    <button type="button">Отправить ответ</button>
+    </p>
+</div>
+
+</body>
+<script type="text/javascript" src="js/gameroom.js"></script>
+</html>
