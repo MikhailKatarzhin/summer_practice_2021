@@ -15,6 +15,7 @@ import summer2021.mathelementaryschool.datebase.model.Salt;
 import summer2021.mathelementaryschool.datebase.model.User;
 import summer2021.mathelementaryschool.datebase.repository.SaltRepository;
 import summer2021.mathelementaryschool.datebase.repository.UserRepository;
+import summer2021.mathelementaryschool.restAPI.DefaultResponse;
 
 @RestController
 public class Authentication implements IAuthenticateJWT{
@@ -42,7 +43,7 @@ public class Authentication implements IAuthenticateJWT{
     }
 
     @PostMapping("/register")
-    public SignResponse sign_up(@RequestBody(required = false) SignRequest request){
+    public DefaultResponse sign_up(@RequestBody(required = false) SignRequest request){
 
         String  salt            = RandomString.make();
         String  password_hash   = DigestUtils.sha1Hex(String.format("%s%s", request.getPassword(), salt));
@@ -55,43 +56,43 @@ public class Authentication implements IAuthenticateJWT{
                 userRepository.save(new User(request.getEmail(), password_hash, saltRepository.findById(id_salt).orElseThrow()));
             } catch (Exception exception) {
                 saltRepository.deleteById(id_salt);
-                return new SignResponse("This user already exists", "400");
+                return new DefaultResponse("This user already exists", "400");
             }
         }catch (Exception exception){
-            return new SignResponse("Salt creating fault", "500");
+            return new DefaultResponse("Salt creating fault", "500");
         }
         System.out.println("created");
-        return new SignResponse("Completed", "200");
+        return new DefaultResponse("Completed", "200");
     }
 
     @PostMapping("/authenticate")
-    public SignResponse sign_in(@RequestBody SignRequest request, HttpServletResponse response){
+    public DefaultResponse sign_in(@RequestBody SignRequest request, HttpServletResponse response){
         User    user;
         try {
             user                = userRepository.findUserByEmail(request.getEmail());
             if(user == null) throw new NullPointerException();
         }catch (Exception exception){
             exception.printStackTrace();
-            return new SignResponse("User does not exist", "400");
+            return new DefaultResponse("User does not exist", "400");
         }
 
         Salt    salt            = saltRepository.findById(user.getSalt().getId()).orElse(null);
         if(salt==null)
-            return new SignResponse("Validation is failed", "500");
+            return new DefaultResponse("Validation is failed", "500");
 
         String  password_hash   = DigestUtils.sha1Hex(String.format("%s%s", request.getPassword(), salt.getSalt()));
         if(!password_hash.equals(user.getPassword()))
-            return new SignResponse("Invalid password", "400");
+            return new DefaultResponse("Invalid password", "400");
 
         String jwtString        = new JWTPayload(user.getId(), user.getEmail()).toJWT(authenticateSecret);
         if (jwtString == null)
-            return new SignResponse("Can not to authorise", "500");
+            return new DefaultResponse("Can not to authorise", "500");
 
         Cookie cookie = new Cookie(authCookieName, jwtString);
         cookie.setPath("/");
         response.addCookie(cookie);
 
-        return new SignResponse("Successful signed in", "200");
+        return new DefaultResponse("Successful signed in", "200");
     }
 
 }

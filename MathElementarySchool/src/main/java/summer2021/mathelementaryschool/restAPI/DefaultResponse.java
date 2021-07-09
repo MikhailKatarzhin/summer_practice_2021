@@ -1,4 +1,4 @@
-package summer2021.mathelementaryschool.restAPI.authorizate;
+package summer2021.mathelementaryschool.restAPI;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SignResponse {
+public class DefaultResponse {
     @NonNull private String status;
     @NonNull private String key;
 }
